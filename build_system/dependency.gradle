@@ -1,0 +1,18 @@
+ext {
+
+    appCompatVersion = '1.0.2'
+    ktxCoreVersion = '1.0.2'
+
+    constraintLayoutVersion = '1.1.3'
+
+    dependency = [
+
+            //Android core
+            ktxCore         : "androidx.core:core-ktx:$ktxCoreVersion",
+            kotlinStdLib    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            appCompat       : "androidx.appcompat:appcompat:$appCompatVersion",
+
+            //ConstraintLayout
+            constraintLayout: "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    ]
+}

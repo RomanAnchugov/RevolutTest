@@ -1,21 +1,21 @@
-apply plugin: 'com.android.application'
-
+apply plugin: 'com.android.dynamic-feature'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
-apply from: "../build_system/android.gradle"
-
 android {
-    defaultConfig {
-        applicationId "ru.romananchugov.revoluttest"
-    }
+    compileSdkVersion 29
 
-    dynamicFeatures = [":feature_converter"]
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+    }
 }
 
 dependencies {
-    implementation project(":core")
+    implementation project(':app')
 
     implementation dependency.kotlinStdLib
     implementation dependency.appCompat

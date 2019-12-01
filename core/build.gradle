@@ -1,21 +1,10 @@
-apply plugin: 'com.android.application'
-
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 apply from: "../build_system/android.gradle"
 
-android {
-    defaultConfig {
-        applicationId "ru.romananchugov.revoluttest"
-    }
-
-    dynamicFeatures = [":feature_converter"]
-}
-
 dependencies {
-    implementation project(":core")
 
     implementation dependency.kotlinStdLib
     implementation dependency.appCompat
