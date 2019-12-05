@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
 apply from: "../build_system/android.gradle"
 
 android {
@@ -21,5 +23,38 @@ dependencies {
     implementation dependency.appCompat
     implementation dependency.ktxCore
 
+    //Navigation
+    implementation dependency.navFragment
+    implementation dependency.navUi
+
+    //Timber
+    implementation dependency.timber
+
+    //Koin
+    implementation dependency.koinCore
+    implementation dependency.koinAndroid
+    implementation dependency.koinScope
+    implementation dependency.koinViewModel
+    implementation dependency.koinFragment
+
+    //ViewModel and LiveData
+    implementation dependency.lifecycle
+
+    //Coroutines
+    implementation dependency.coroutines
+    implementation dependency.androidCoroutines
+
+    //Moshi
+    implementation dependency.moshi
+
+    //Retrofit
+    implementation dependency.retrofit
+
+    //Constraint
     implementation dependency.constraintLayout
+
+    //Room
+    implementation dependency.room
+    annotationProcessor dependency.roomCompiler
+    implementation dependency.roomCoroutines
 }

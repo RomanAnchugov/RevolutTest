@@ -11,6 +11,11 @@ android {
         versionCode globalConfiguration["androidVersionCode"]
         versionName globalConfiguration["androidVersionName"]
     }
+
+    dataBinding{
+        enabled = true
+    }
+
     buildTypes {
         debug {
             versionNameSuffix = "-debug"
