@@ -1,0 +1,29 @@
+apply plugin: 'com.android.dynamic-feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation project(':app')
+
+    implementation dependency.kotlinStdLib
+    implementation dependency.appCompat
+    implementation dependency.ktxCore
+
+    implementation dependency.constraintLayout
+}
