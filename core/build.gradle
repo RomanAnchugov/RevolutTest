@@ -6,9 +6,26 @@ apply from: "../build_system/android.gradle"
 
 dependencies {
 
-    implementation dependency.kotlinStdLib
-    implementation dependency.appCompat
-    implementation dependency.ktxCore
+    //KTX
+    api dependency.ktxCore
+    api dependency.ktxLifecycleViewModel
 
-    implementation dependency.constraintLayout
+    //Core
+    api dependency.kotlinStdLib
+    api dependency.appCompat
+
+    //Timber
+    api dependency.timber
+
+    //Coroutines
+    api dependency.coroutines
+    api dependency.androidCoroutines
+
+    //Koin
+    api dependency.koinCore
+    api dependency.koinAndroid
+    api dependency.koinScope
+    api dependency.koinViewModel
+    api dependency.koinFragment
+
 }

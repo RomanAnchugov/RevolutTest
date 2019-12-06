@@ -17,44 +17,27 @@ android {
 }
 
 dependencies {
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation project(":core")
 
-    implementation dependency.kotlinStdLib
-    implementation dependency.appCompat
-    implementation dependency.ktxCore
-
     //Navigation
-    implementation dependency.navFragment
-    implementation dependency.navUi
-
-    //Timber
-    implementation dependency.timber
-
-    //Koin
-    implementation dependency.koinCore
-    implementation dependency.koinAndroid
-    implementation dependency.koinScope
-    implementation dependency.koinViewModel
-    implementation dependency.koinFragment
+    api dependency.navFragment
+    api dependency.navUi
 
     //ViewModel and LiveData
-    implementation dependency.lifecycle
-
-    //Coroutines
-    implementation dependency.coroutines
-    implementation dependency.androidCoroutines
+    api dependency.lifecycle
 
     //Moshi
-    implementation dependency.moshi
+    api dependency.moshi
 
     //Retrofit
-    implementation dependency.retrofit
+    api dependency.retrofit
 
     //Constraint
-    implementation dependency.constraintLayout
+    api dependency.constraintLayout
 
     //Room
-    implementation dependency.room
+    api dependency.room
     annotationProcessor dependency.roomCompiler
-    implementation dependency.roomCoroutines
+    api dependency.roomCoroutines
 }

@@ -2,12 +2,17 @@ ext {
 
     appCompatVersion = '1.0.2'
     ktxCoreVersion = '1.0.2'
+    ktxLifecycleViewModelVersion = '2.2.0-rc03'
 
     navigationVersion = '2.1.0'
+    //in dev!!!
+    //navigationDynamicVersion = '2.3.0'
 
     timberVersion = '4.7.1'
 
     koinVersion = '2.0.1'
+    //attention! alpha :)
+    koinFragmentVersion = '2.1.0-alpha-7'
 
     lifecycleVersion = '2.1.0'
 
@@ -21,48 +26,52 @@ ext {
 
     roomVersion = '2.2.2'
 
+
     dependency = [
 
-            //Android core
-            ktxCore          : "androidx.core:core-ktx:$ktxCoreVersion",
-            kotlinStdLib     : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            appCompat        : "androidx.appcompat:appcompat:$appCompatVersion",
+            //KTX
+            ktxCore              : "androidx.core:core-ktx:$ktxCoreVersion",
+            ktxLifecycleViewModel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$ktxLifecycleViewModelVersion",
+
+            //Core
+            kotlinStdLib         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            appCompat            : "androidx.appcompat:appcompat:$appCompatVersion",
 
             //Navigation
-            navFragment      : "androidx.navigation:navigation-fragment-ktx:$navigationVersion",
-            navUi            : "androidx.navigation:navigation-ui-ktx:$navigationVersion",
+            navFragment          : "androidx.navigation:navigation-fragment-ktx:$navigationVersion",
+            navUi                : "androidx.navigation:navigation-ui-ktx:$navigationVersion",
+//            navDynamic           : "androidx.navigation:navigation-dynamic-features-fragment:$navigationDynamicVersion",
 
             //Timber
-            timber           : "com.jakewharton.timber:timber:$timberVersion",
+            timber               : "com.jakewharton.timber:timber:$timberVersion",
 
             //Koin
-            koinCore         : "org.koin:koin-core:$koinVersion",
-            koinAndroid      : "org.koin:koin-android:$koinVersion",
-            koinScope        : "org.koin:koin-androidx-scope:$koinVersion",
-            koinViewModel    : "org.koin:koin-androidx-viewmodel:$koinVersion",
-            //TODO: attention! alpha :)
-            koinFragment     : "org.koin:koin-androidx-fragment:2.1.0-alpha-7",
+            koinCore             : "org.koin:koin-core:$koinVersion",
+            koinAndroid          : "org.koin:koin-android:$koinVersion",
+            koinScope            : "org.koin:koin-androidx-scope:$koinVersion",
+            koinViewModel        : "org.koin:koin-androidx-viewmodel:$koinVersion",
+            koinFragment         : "org.koin:koin-androidx-fragment:$koinFragmentVersion",
 
             //ViewModel and LiveData
-            lifecycle        : "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion",
+            lifecycle            : "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion",
 
             //Coroutines
-            coroutines       : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion",
-            androidCoroutines: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion",
+            coroutines           : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion",
+            androidCoroutines    : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion",
 
             //ConstraintLayout
-            constraintLayout : "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
+            constraintLayout     : "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
 
             //Moshi
-            moshi            : "com.squareup.moshi:moshi-kotlin:$moshiVersion",
+            moshi                : "com.squareup.moshi:moshi-kotlin:$moshiVersion",
 
             //Retrofit
-            retrofit         : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofit             : "com.squareup.retrofit2:retrofit:$retrofitVersion",
 
             //Room
-            room             : "androidx.room:room-runtime:$roomVersion",
-            roomCompiler     : "androidx.room:room-compiler:$roomVersion",
-            roomCoroutines   : "androidx.room:room-ktx:$roomVersion"
+            room                 : "androidx.room:room-runtime:$roomVersion",
+            roomCompiler         : "androidx.room:room-compiler:$roomVersion",
+            roomCoroutines       : "androidx.room:room-ktx:$roomVersion"
 
 
     ]
