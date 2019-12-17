@@ -17,15 +17,11 @@ android {
 }
 
 dependencies {
-    api 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation project(":core")
+    api project(":core")
 
     //Navigation
     api dependency.navFragment
     api dependency.navUi
-
-    //ViewModel and LiveData
-    api dependency.lifecycle
 
     //Moshi
     api dependency.moshi
