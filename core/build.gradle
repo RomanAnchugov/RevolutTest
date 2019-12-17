@@ -9,6 +9,7 @@ dependencies {
     //KTX
     api dependency.ktxCore
     api dependency.ktxLifecycleViewModel
+    api dependency.ktxFragment
 
     //Core
     api dependency.kotlinStdLib
@@ -27,5 +28,8 @@ dependencies {
     api dependency.koinScope
     api dependency.koinViewModel
     api dependency.koinFragment
+
+    //ViewModel and LiveData
+    api dependency.lifecycle
 
 }

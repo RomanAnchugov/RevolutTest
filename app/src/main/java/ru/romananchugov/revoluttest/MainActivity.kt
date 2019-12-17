@@ -1,9 +1,9 @@
 package ru.romananchugov.revoluttest
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import ru.romananchugov.core.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

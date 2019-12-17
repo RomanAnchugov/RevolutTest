@@ -1,8 +1,11 @@
 ext {
 
     appCompatVersion = '1.0.2'
+
+    //ktx
     ktxCoreVersion = '1.0.2'
     ktxLifecycleViewModelVersion = '2.2.0-rc03'
+    ktxFragmentVersion = '1.1.0'
 
     navigationVersion = '2.1.0'
     //in dev!!!
@@ -32,6 +35,7 @@ ext {
             //KTX
             ktxCore              : "androidx.core:core-ktx:$ktxCoreVersion",
             ktxLifecycleViewModel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$ktxLifecycleViewModelVersion",
+            ktxFragment          : "androidx.fragment:fragment-ktx:$ktxFragmentVersion",
 
             //Core
             kotlinStdLib         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",

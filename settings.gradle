@@ -1,2 +1,2 @@
-include ':app', ':core', ':feature_converter'
+include ':app', ':feature_converter', ':core'
 rootProject.name='RevolutTest'
