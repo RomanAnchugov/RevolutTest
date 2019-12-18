@@ -1,10 +1,11 @@
-package ru.romananchugov.feature_converter
+package ru.romananchugov.feature_converter.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.romananchugov.core.base.BaseFragment
+import ru.romananchugov.core.base.presentation.BaseFragment
+import ru.romananchugov.feature_converter.R
 
 class ConverterListFragment : BaseFragment() {
 

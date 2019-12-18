@@ -1,4 +1,4 @@
-package ru.romananchugov.core.base
+package ru.romananchugov.core.base.presentation
 
 import androidx.lifecycle.ViewModel
 

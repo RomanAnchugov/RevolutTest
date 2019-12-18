@@ -7,6 +7,6 @@
     <!--ru.romananchugov.feature_converter.<>-->
     <fragment
         android:id="@+id/converterListFragment"
-        android:name="ru.romananchugov.feature_converter.ConverterListFragment"
+        android:name="ru.romananchugov.feature_converter.presentation.ConverterListFragment"
         android:label="fragment_converter_list" />
 </navigation>
