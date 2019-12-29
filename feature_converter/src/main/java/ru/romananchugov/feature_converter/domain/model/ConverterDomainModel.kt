@@ -1,6 +1,6 @@
 package ru.romananchugov.feature_converter.domain.model
 
-import ru.romananchugov.feature_converter.domain.enum.ConverterDomainBaseEnum
+import ru.romananchugov.feature_converter.domain.enum.ConverterBasesDomainEnum
 
 data class ConverterDomainModel(
     val base: String,
@@ -9,6 +9,6 @@ data class ConverterDomainModel(
 )
 
 data class ConverterItemDomainModel(
-    val name: ConverterDomainBaseEnum,
+    val name: ConverterBasesDomainEnum,
     val rate: Float
 )

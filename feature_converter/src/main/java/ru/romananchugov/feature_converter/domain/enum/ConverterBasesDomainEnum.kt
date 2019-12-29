@@ -1,6 +1,6 @@
 package ru.romananchugov.feature_converter.domain.enum
 
-enum class ConverterDomainBaseEnum(value: String) {
+enum class ConverterBasesDomainEnum(value: String) {
     AUD("AUD"),
     BGN("BGN"),
     BRL("BRL"),
