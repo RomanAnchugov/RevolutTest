@@ -23,11 +23,13 @@ dependencies {
     api dependency.navFragment
     api dependency.navUi
 
-    //Moshi
-    api dependency.moshi
 
     //Retrofit
     api dependency.retrofit
+    //Moshi
+    api dependency.moshiConverter
+    //Retrofit Logging Interceptor
+    api dependency.loggingInterceptor
 
     //Constraint
     api dependency.constraintLayout

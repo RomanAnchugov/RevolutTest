@@ -11,6 +11,8 @@ dependencies {
     api dependency.ktxLifecycleViewModel
     api dependency.ktxFragment
 
+    api dependency.kotlinReflect
+
     //Core
     api dependency.kotlinStdLib
     api dependency.appCompat
