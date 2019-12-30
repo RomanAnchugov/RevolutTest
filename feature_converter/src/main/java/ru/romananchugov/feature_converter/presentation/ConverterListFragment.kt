@@ -8,9 +8,9 @@ import org.koin.android.ext.android.inject
 import ru.romananchugov.core.base.presentation.BaseFragment
 import ru.romananchugov.feature_converter.R
 
-class ConverterListFragment : BaseFragment() {
+internal class ConverterListFragment : BaseFragment() {
 
-    val viewModel by inject<ConverterViewModel>()
+    private val viewModel by inject<ConverterViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,7 +22,7 @@ class ConverterListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.test()
+        viewModel.init()
     }
 
 
