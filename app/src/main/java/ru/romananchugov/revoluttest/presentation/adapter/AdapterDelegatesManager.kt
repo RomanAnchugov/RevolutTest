@@ -23,8 +23,8 @@ class AdapterDelegatesManager<T> {
             ?: throw Exception("No Delegate Found for ViewType $viewType")
     }
 
-    fun onBindViewHolder(items: List<T>, holder: RecyclerView.ViewHolder, position: Int) {
-        delegateForViewType(holder.itemViewType)?.onBindViewHolder(items, holder, position)
+    fun onBindViewHolder(item: T, holder: RecyclerView.ViewHolder, position: Int) {
+        delegateForViewType(holder.itemViewType)?.onBindViewHolder(item, holder, position)
             ?: throw Exception("No Delegate Found for ViewType ${holder.itemViewType}")
     }
 
