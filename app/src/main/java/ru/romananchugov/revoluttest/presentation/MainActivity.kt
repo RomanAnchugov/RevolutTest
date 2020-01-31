@@ -1,7 +1,8 @@
-package ru.romananchugov.revoluttest
+package ru.romananchugov.revoluttest.presentation
 
 import android.os.Bundle
-import ru.romananchugov.core.base.BaseActivity
+import ru.romananchugov.core.base.presentation.BaseActivity
+import ru.romananchugov.revoluttest.R
 
 class MainActivity : BaseActivity() {
 

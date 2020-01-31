@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 apply from: "../build_system/android.gradle"
 
@@ -10,6 +11,8 @@ dependencies {
     api dependency.ktxCore
     api dependency.ktxLifecycleViewModel
     api dependency.ktxFragment
+
+    api dependency.kotlinReflect
 
     //Core
     api dependency.kotlinStdLib

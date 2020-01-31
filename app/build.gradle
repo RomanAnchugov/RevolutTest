@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
@@ -23,17 +25,21 @@ dependencies {
     api dependency.navFragment
     api dependency.navUi
 
-    //Moshi
-    api dependency.moshi
+//    //DataBinding
+//    kapt "com.android.databinding:compiler:3.1.4"
 
     //Retrofit
     api dependency.retrofit
+    //Moshi
+    api dependency.moshiConverter
+    //Retrofit Logging Interceptor
+    api dependency.loggingInterceptor
 
     //Constraint
     api dependency.constraintLayout
 
     //Room
     api dependency.room
-    annotationProcessor dependency.roomCompiler
+    kapt dependency.roomCompiler
     api dependency.roomCoroutines
 }
