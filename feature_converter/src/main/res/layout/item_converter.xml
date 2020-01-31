@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="ru.romananchugov.feature_converter.presentation.model.ConverterPresentationModel" />
+            type="ru.romananchugov.feature_converter.presentation.model.ConverterListItem" />
     </data>
 
     <LinearLayout
@@ -18,7 +18,13 @@
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{item.text}"
+            android:text="@{item.currencyName}"
             tools:text="LOOOL" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(item.currencyRate)}"
+            tools:text="ROOOFL" />
     </LinearLayout>
 </layout>

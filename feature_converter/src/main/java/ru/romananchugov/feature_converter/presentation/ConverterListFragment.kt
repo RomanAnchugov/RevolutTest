@@ -12,15 +12,16 @@ import ru.romananchugov.core.base.presentation.BaseFragment
 import ru.romananchugov.core.ext.observe
 import ru.romananchugov.feature_converter.R
 import ru.romananchugov.feature_converter.databinding.FragmentConverterListBinding
-import ru.romananchugov.feature_converter.presentation.adapter.ConverterListAdapter
-import ru.romananchugov.feature_converter.presentation.model.ConverterPresentationModel
+import ru.romananchugov.feature_converter.presentation.adapter.ConverterListAdapterDelegate
+import ru.romananchugov.feature_converter.presentation.adapter.ConverterListDiffCallback
+import ru.romananchugov.feature_converter.presentation.model.ConverterListItem
 import ru.romananchugov.revoluttest.presentation.adapter.DelegationAdapter
 
 internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState>() {
 
     private val viewModel by inject<ConverterViewModel>()
 
-    private val adapter = DelegationAdapter(ConverterListAdapter())
+    private val adapter = DelegationAdapter(ConverterListDiffCallback(), ConverterListAdapterDelegate())
 
     private lateinit var binding: FragmentConverterListBinding
     override val stateObserver: Observer<ConverterViewModel.ViewState>? = Observer { state ->
@@ -43,17 +44,24 @@ internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState
         binding.converterRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        adapter.add(ConverterPresentationModel("Test"))
-        adapter.add(ConverterPresentationModel("Test"))
-        adapter.add(ConverterPresentationModel("Test"))
-        adapter.add(ConverterPresentationModel("Test"))
-        adapter.add(ConverterPresentationModel("Test"))
-        adapter.add(ConverterPresentationModel("Test"))
-        adapter.add(ConverterPresentationModel("Test"))
-        adapter.add(ConverterPresentationModel("Test"))
-        adapter.add(ConverterPresentationModel("Test"))
-        adapter.add(ConverterPresentationModel("Test"))
 
+//        adapter.submitList(
+//            listOf(
+//                ConverterListItem("Test"),
+//                ConverterListItem("One"),
+//                ConverterListItem("Two"),
+//                ConverterListItem("Three"),
+//                ConverterListItem("Four"),
+//                ConverterListItem("Five"),
+//                ConverterListItem("Test"),
+//                ConverterListItem("Test"),
+//                ConverterListItem("Test"),
+//                ConverterListItem("Test"),
+//                ConverterListItem("Test"),
+//                ConverterListItem("Test"),
+//                ConverterListItem("Test")
+//            )
+//        )
 
         return binding.root
     }

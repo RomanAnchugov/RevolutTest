@@ -6,13 +6,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.romananchugov.feature_converter.R
 import ru.romananchugov.feature_converter.databinding.ItemConverterBinding
-import ru.romananchugov.feature_converter.presentation.model.ConverterPresentationModel
+import ru.romananchugov.feature_converter.presentation.model.ConverterListItem
 import ru.romananchugov.revoluttest.presentation.adapter.AdapterDelegate
 import ru.romananchugov.revoluttest.presentation.model.DisplayableItem
 
-class ConverterListAdapter : AdapterDelegate<DisplayableItem>() {
-    override fun isForViewTpye(items: List<DisplayableItem>, position: Int): Boolean {
-        return items[position] is ConverterPresentationModel
+class ConverterListAdapterDelegate : AdapterDelegate<DisplayableItem>() {
+    override fun isForViewType(items: List<DisplayableItem>, position: Int): Boolean {
+        return items[position] is ConverterListItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -26,12 +26,11 @@ class ConverterListAdapter : AdapterDelegate<DisplayableItem>() {
     }
 
     override fun onBindViewHolder(
-        items: List<DisplayableItem>,
+        item: DisplayableItem,
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        val item = items[position] as ConverterPresentationModel
-        (holder as ViewHolder).binding.item = item
+        (holder as ViewHolder).binding.item = item as ConverterListItem
     }
 
     inner class ViewHolder(val binding: ItemConverterBinding) :

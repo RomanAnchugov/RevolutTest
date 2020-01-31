@@ -8,8 +8,9 @@ import ru.romananchugov.core.base.presentation.viewmodel.BaseState
 import ru.romananchugov.core.base.presentation.viewmodel.BaseViewModel
 import ru.romananchugov.feature_converter.R
 import ru.romananchugov.feature_converter.domain.enum.ConverterBasesDomainEnum
-import ru.romananchugov.feature_converter.domain.model.ConverterDomainModel
+import ru.romananchugov.feature_converter.domain.model.toPresentationModel
 import ru.romananchugov.feature_converter.domain.use_case.ConverterUseCase
+import ru.romananchugov.feature_converter.presentation.model.ConverterPresentationModel
 import timber.log.Timber
 
 internal class ConverterViewModel(
@@ -20,7 +21,11 @@ internal class ConverterViewModel(
         sendAction(ViewAction.ConverterLoading)
         viewModelScope.launch {
             try {
-                val result = useCase.getConverterList(ConverterBasesDomainEnum.AUD)
+                sendAction(ViewAction.ConverterLoading)
+
+                val result =
+                    useCase.getConverterList(ConverterBasesDomainEnum.USD)?.toPresentationModel()
+
                 sendAction(ViewAction.ConverterLoaded(result))
             } catch (e: Exception) {
                 Timber.tag("LOL").i("WOOOOPS ${e.message}")
@@ -43,7 +48,7 @@ internal class ConverterViewModel(
             ViewState(
                 isLoading = false,
                 isError = false,
-                converterData = viewAction.converterData//TODO: toPresentationModel
+                converterData = viewAction.converterData
             )
         }
         is ViewAction.ConverterLoadingError -> {
@@ -59,12 +64,12 @@ internal class ConverterViewModel(
     internal data class ViewState(
         val isLoading: Boolean = true,
         val isError: Boolean = false,
-        val converterData: ConverterDomainModel? = null
+        val converterData: ConverterPresentationModel? = null
     ) : BaseState
 
     internal sealed class ViewAction : BaseAction {
         object ConverterLoading : ViewAction()
-        data class ConverterLoaded(val converterData: ConverterDomainModel?) : ViewAction()
+        data class ConverterLoaded(val converterData: ConverterPresentationModel?) : ViewAction()
         data class ConverterLoadingError(@StringRes val errorMessageString: Int) : ViewAction()
     }
 }

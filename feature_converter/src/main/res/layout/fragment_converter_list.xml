@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewState"
             type="ru.romananchugov.feature_converter.presentation.ConverterViewModel.ViewState" />
@@ -14,17 +14,16 @@
         android:layout_height="match_parent"
         tools:context="ru.romananchugov.feature_converter.presentation.ConverterListFragment">
 
-        <!-- TODO: Update blank fragment layout -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@{viewState.converterData.base}" />
+            android:text="@{`loliks`}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/converter_rv"
             android:layout_marginTop="100dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
+            android:layout_height="match_parent"
+            app:listData="@{viewState.converterData.itemsList}" />
     </FrameLayout>
 </layout>

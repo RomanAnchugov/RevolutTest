@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
  * T - is an item class
  */
 class DelegationAdapter<T>(diffCallback: DiffUtil.ItemCallback<T>) :
-    ListAdapter<T, RecyclerView.ViewHolder>(diffCallback) {
+    ListAdapter<T, RecyclerView.ViewHolder>(diffCallback), BindableAdapter<List<T>> {
 
     private val adapterDelegatesManager: AdapterDelegatesManager<T> = AdapterDelegatesManager()
 
@@ -34,5 +34,9 @@ class DelegationAdapter<T>(diffCallback: DiffUtil.ItemCallback<T>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         adapterDelegatesManager.onBindViewHolder(getItem(position), holder, position)
+    }
+
+    override fun setData(data: List<T>?) {
+        submitList(data)
     }
 }

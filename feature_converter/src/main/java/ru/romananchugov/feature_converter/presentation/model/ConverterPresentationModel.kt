@@ -1,8 +1,8 @@
 package ru.romananchugov.feature_converter.presentation.model
 
-import ru.romananchugov.revoluttest.presentation.model.DisplayableItem
-
-//TODO
+/**
+ * Model that uses in presentation layer for all data in @see ConverterListFragment
+ */
 data class ConverterPresentationModel(
-    val text: String
-) : DisplayableItem
+    val itemsList: List<ConverterListItem>
+)
