@@ -16,6 +16,17 @@ android {
     }
 
     dynamicFeatures = [":feature_converter"]
+
+    buildTypes {
+        debug {
+            versionNameSuffix = "-debug"
+        }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {

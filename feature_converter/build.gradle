@@ -3,21 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-android {
-    compileSdkVersion 29
-
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-
-    }
-
-    dataBinding {
-        enabled = true
-    }
-}
+apply from: "../build_system/android.gradle"
 
 dependencies {
     implementation project(':app')
