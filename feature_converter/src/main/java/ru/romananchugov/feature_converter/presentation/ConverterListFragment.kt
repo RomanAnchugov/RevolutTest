@@ -14,7 +14,6 @@ import ru.romananchugov.feature_converter.R
 import ru.romananchugov.feature_converter.databinding.FragmentConverterListBinding
 import ru.romananchugov.feature_converter.presentation.adapter.ConverterListAdapterDelegate
 import ru.romananchugov.feature_converter.presentation.adapter.ConverterListDiffCallback
-import ru.romananchugov.feature_converter.presentation.model.ConverterListItem
 import ru.romananchugov.revoluttest.presentation.adapter.DelegationAdapter
 
 internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState>() {
@@ -43,25 +42,6 @@ internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState
         binding.converterRv.adapter = adapter
         binding.converterRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-
-//        adapter.submitList(
-//            listOf(
-//                ConverterListItem("Test"),
-//                ConverterListItem("One"),
-//                ConverterListItem("Two"),
-//                ConverterListItem("Three"),
-//                ConverterListItem("Four"),
-//                ConverterListItem("Five"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test")
-//            )
-//        )
 
         return binding.root
     }

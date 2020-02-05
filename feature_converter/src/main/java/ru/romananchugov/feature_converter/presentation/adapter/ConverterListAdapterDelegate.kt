@@ -6,13 +6,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.romananchugov.feature_converter.R
 import ru.romananchugov.feature_converter.databinding.ItemConverterBinding
-import ru.romananchugov.feature_converter.presentation.model.ConverterListItem
+import ru.romananchugov.feature_converter.presentation.model.ConverterCurrencyWithFlag
 import ru.romananchugov.revoluttest.presentation.adapter.AdapterDelegate
 import ru.romananchugov.revoluttest.presentation.model.DisplayableItem
 
 class ConverterListAdapterDelegate : AdapterDelegate<DisplayableItem>() {
     override fun isForViewType(items: List<DisplayableItem>, position: Int): Boolean {
-        return items[position] is ConverterListItem
+        return items[position] is ConverterCurrencyWithFlag
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -30,7 +30,7 @@ class ConverterListAdapterDelegate : AdapterDelegate<DisplayableItem>() {
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        (holder as ViewHolder).binding.item = item as ConverterListItem
+        (holder as ViewHolder).binding.item = item as ConverterCurrencyWithFlag
     }
 
     inner class ViewHolder(val binding: ItemConverterBinding) :

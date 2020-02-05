@@ -37,7 +37,6 @@ ext {
 
     roomVersion = '2.2.2'
 
-
     dependency = [
 
             //KTX
@@ -87,7 +86,5 @@ ext {
             room                 : "androidx.room:room-runtime:$roomVersion",
             roomCompiler         : "androidx.room:room-compiler:$roomVersion",
             roomCoroutines       : "androidx.room:room-ktx:$roomVersion"
-
-
     ]
 }

@@ -7,10 +7,4 @@ apply from: "../build_system/android.gradle"
 
 dependencies {
     implementation project(':app')
-
-    implementation dependency.kotlinStdLib
-    implementation dependency.appCompat
-    implementation dependency.ktxCore
-
-    implementation dependency.constraintLayout
 }

@@ -1,30 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="item"
-            type="ru.romananchugov.feature_converter.presentation.model.ConverterListItem" />
+            type="ru.romananchugov.feature_converter.presentation.model.ConverterCurrencyWithFlag" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{item.currencyName}"
-            tools:text="LOOOL" />
+        <!--TODO: create a custom view for CircleImageView        -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/converter_item_flag_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/start_margin_normal"
+            android:layout_marginTop="@dimen/top_margin_normal"
+            android:layout_marginEnd="@dimen/end_margin_normal"
+            android:layout_marginBottom="@dimen/bottom_margin_normal"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@{item.countryFlagId}"
+                tools:src="@drawable/flag_ca" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/converter_item_currency_abbr_tv"
+            style="@style/R16.Black"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/start_margin_normal"
+            android:layout_marginTop="@dimen/top_margin_normal"
+            android:layout_marginEnd="@dimen/end_margin_normal"
+            android:ellipsize="end"
+            android:text="@{item.currencyAbbreviation}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/converter_item_flag_iv"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(item.currencyRate)}"
-            tools:text="ROOOFL" />
-    </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="USD" />
+
+        <TextView
+            android:id="@+id/converter_item_currency_name_tv"
+            style="@style/R14.Gray"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/start_margin_normal"
+            android:layout_marginEnd="@dimen/end_margin_normal"
+            android:ellipsize="end"
+            android:text="@{item.currencyFullName}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/converter_item_flag_iv"
+            app:layout_constraintTop_toBottomOf="@id/converter_item_currency_abbr_tv"
+            tools:text="US Dollar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

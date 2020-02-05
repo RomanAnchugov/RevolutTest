@@ -1,7 +1,7 @@
 package ru.romananchugov.feature_converter.domain.respository
 
-import ru.romananchugov.feature_converter.domain.model.ConverterDomainModel
+import ru.romananchugov.feature_converter.data.model.ConverterListResultDataModel
 
-interface ConverterListRepository {
-    suspend fun getConvertationList(base: String): ConverterDomainModel?
+internal interface ConverterListRepository {
+    suspend fun getConverterList(base: String): ConverterListResultDataModel?
 }

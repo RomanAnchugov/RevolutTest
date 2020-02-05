@@ -7,7 +7,7 @@ import ru.romananchugov.core.base.presentation.viewmodel.BaseAction
 import ru.romananchugov.core.base.presentation.viewmodel.BaseState
 import ru.romananchugov.core.base.presentation.viewmodel.BaseViewModel
 import ru.romananchugov.feature_converter.R
-import ru.romananchugov.feature_converter.domain.enum.ConverterBasesDomainEnum
+import ru.romananchugov.feature_converter.domain.enum.ConverterCurrenciesDomainEnum
 import ru.romananchugov.feature_converter.domain.model.toPresentationModel
 import ru.romananchugov.feature_converter.domain.use_case.ConverterUseCase
 import ru.romananchugov.feature_converter.presentation.model.ConverterPresentationModel
@@ -24,7 +24,7 @@ internal class ConverterViewModel(
                 sendAction(ViewAction.ConverterLoading)
 
                 val result =
-                    useCase.getConverterList(ConverterBasesDomainEnum.USD)?.toPresentationModel()
+                    useCase.getConverterList(ConverterCurrenciesDomainEnum.USD)?.toPresentationModel()
 
                 sendAction(ViewAction.ConverterLoaded(result))
             } catch (e: Exception) {
