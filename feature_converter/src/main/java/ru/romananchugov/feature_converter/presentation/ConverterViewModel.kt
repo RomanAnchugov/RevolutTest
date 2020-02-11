@@ -10,6 +10,7 @@ import ru.romananchugov.feature_converter.R
 import ru.romananchugov.feature_converter.domain.enum.ConverterCurrenciesDomainEnum
 import ru.romananchugov.feature_converter.domain.model.toPresentationModel
 import ru.romananchugov.feature_converter.domain.use_case.ConverterUseCase
+import ru.romananchugov.feature_converter.presentation.model.ConverterCurrencyWithFlagItem
 import ru.romananchugov.feature_converter.presentation.model.ConverterPresentationModel
 import timber.log.Timber
 
@@ -36,7 +37,7 @@ internal class ConverterViewModel(
 
     override fun handleAction(viewAction: ViewAction): ViewState = when (viewAction) {
         is ViewAction.ConverterLoading -> {
-            Timber.tag("LOL").i("Start to suck ass")
+            Timber.tag("LOL").i("Action Loading")
             ViewState(
                 isLoading = true,
                 isError = false,
@@ -44,7 +45,7 @@ internal class ConverterViewModel(
             )
         }
         is ViewAction.ConverterLoaded -> {
-            Timber.tag("LOL").i("Loadede suck ass $viewAction")
+            Timber.tag("LOL").i("Action Loaded $viewAction")
             ViewState(
                 isLoading = false,
                 isError = false,
@@ -52,7 +53,7 @@ internal class ConverterViewModel(
             )
         }
         is ViewAction.ConverterLoadingError -> {
-            Timber.tag("LOL").i("Real suck ass")
+            Timber.tag("LOL").i("Action Error")
             ViewState(
                 isLoading = false,
                 isError = true,
@@ -61,7 +62,22 @@ internal class ConverterViewModel(
         }
     }
 
-    internal data class ViewState(
+    fun onConverterListItemFocus(item: ConverterCurrencyWithFlagItem) {
+        val newList = viewStateLiveData.value?.converterData?.itemsList?.toMutableList()
+        newList?.apply {
+
+            val itemIndex = indexOf(item)
+            //swap first and this
+            val tmp = this[0]
+            this[0] = this[itemIndex]
+            this[itemIndex] = tmp
+
+            val model = viewStateLiveData.value?.converterData?.copy(itemsList = this)
+            sendAction(ViewAction.ConverterLoaded(model))
+        }
+    }
+
+    data class ViewState(
         val isLoading: Boolean = true,
         val isError: Boolean = false,
         val converterData: ConverterPresentationModel? = null

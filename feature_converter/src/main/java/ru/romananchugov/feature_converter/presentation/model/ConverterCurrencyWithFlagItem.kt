@@ -4,14 +4,10 @@ import ru.romananchugov.feature_converter.R
 import ru.romananchugov.feature_converter.domain.enum.ConverterCurrenciesDomainEnum
 import ru.romananchugov.revoluttest.presentation.model.DisplayableItem
 
-data class ConverterCurrencyWithFlag(
-    val testStr: String = "test",
-    private val currency: ConverterCurrenciesDomainEnum = ConverterCurrenciesDomainEnum.USD
-) : DisplayableItem {
-
-
-    //TODO: maybe make a field(flag, name) and put in there this mapping
-    //TODO: bring this method to mapping in domain model
+data class ConverterCurrencyWithFlagItem(
+    private val currency: ConverterCurrenciesDomainEnum = ConverterCurrenciesDomainEnum.USD,
+    var rate: Float
+) : DisplayableItem{
 
     fun getCountryFlagId(): Int = when (currency) {
         ConverterCurrenciesDomainEnum.AUD -> {
@@ -152,6 +148,7 @@ data class ConverterCurrencyWithFlag(
         ConverterCurrenciesDomainEnum.USD -> R.string.USD
         ConverterCurrenciesDomainEnum.ZAR -> R.string.ZAR
     }
+
+    fun getCurrencyRate(): String = rate.toString()
 }
-//TODO: this should be a DisplayableItem for recycler?
 

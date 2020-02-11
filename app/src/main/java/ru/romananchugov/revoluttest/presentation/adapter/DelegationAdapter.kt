@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import timber.log.Timber
 
 /**
  * T - is an item class
@@ -37,6 +38,7 @@ class DelegationAdapter<T>(diffCallback: DiffUtil.ItemCallback<T>) :
     }
 
     override fun setData(data: List<T>?) {
+        Timber.tag("LOL").i("set Data")
         submitList(data)
     }
 }

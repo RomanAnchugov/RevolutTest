@@ -16,4 +16,12 @@
     <style name="R16.Black">
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="R20">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="R20.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

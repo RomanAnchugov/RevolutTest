@@ -7,12 +7,15 @@
 
         <variable
             name="item"
-            type="ru.romananchugov.feature_converter.presentation.model.ConverterCurrencyWithFlag" />
+            type="ru.romananchugov.feature_converter.presentation.model.ConverterCurrencyWithFlagItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:orientation="vertical">
 
         <!--TODO: create a custom view for CircleImageView        -->
@@ -48,8 +51,8 @@
             android:layout_marginEnd="@dimen/end_margin_normal"
             android:ellipsize="end"
             android:text="@{item.currencyAbbreviation}"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/converter_item_flag_iv"
+            app:layout_constraintEnd_toStartOf="@id/converter_item_currency_rate_et"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="USD" />
@@ -63,10 +66,24 @@
             android:layout_marginEnd="@dimen/end_margin_normal"
             android:ellipsize="end"
             android:text="@{item.currencyFullName}"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/converter_item_currency_rate_et"
             app:layout_constraintStart_toEndOf="@id/converter_item_flag_iv"
             app:layout_constraintTop_toBottomOf="@id/converter_item_currency_abbr_tv"
             tools:text="US Dollar" />
+
+        <EditText
+            android:id="@+id/converter_item_currency_rate_et"
+            style="@style/R20.Black"
+            android:maxLength="8"
+            android:inputType="numberDecimal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/end_margin_normal"
+            android:text="@{item.currencyRate}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1234.5333" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

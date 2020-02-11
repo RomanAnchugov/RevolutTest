@@ -15,15 +15,15 @@ import ru.romananchugov.feature_converter.databinding.FragmentConverterListBindi
 import ru.romananchugov.feature_converter.presentation.adapter.ConverterListAdapterDelegate
 import ru.romananchugov.feature_converter.presentation.adapter.ConverterListDiffCallback
 import ru.romananchugov.revoluttest.presentation.adapter.DelegationAdapter
+import timber.log.Timber
 
 internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState>() {
 
     private val viewModel by inject<ConverterViewModel>()
 
-    private val adapter = DelegationAdapter(ConverterListDiffCallback(), ConverterListAdapterDelegate())
-
     private lateinit var binding: FragmentConverterListBinding
     override val stateObserver: Observer<ConverterViewModel.ViewState>? = Observer { state ->
+        Timber.tag("LOL").i("got new state\n${state.converterData?.itemsList}")
         binding.viewState = state
     }
 
@@ -38,16 +38,23 @@ internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState
             container,
             false
         )
-        binding.lifecycleOwner = this
-        binding.converterRv.adapter = adapter
-        binding.converterRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.converterRv.adapter = DelegationAdapter(
+            ConverterListDiffCallback(),
+            ConverterListAdapterDelegate(
+                viewModel::onConverterListItemFocus
+            )
+        )
+        binding.converterRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
         viewModel.init()
         observe(viewModel.viewStateLiveData, stateObserver)
 

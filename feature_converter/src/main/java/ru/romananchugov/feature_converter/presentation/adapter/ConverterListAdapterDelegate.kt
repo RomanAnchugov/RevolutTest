@@ -6,13 +6,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.romananchugov.feature_converter.R
 import ru.romananchugov.feature_converter.databinding.ItemConverterBinding
-import ru.romananchugov.feature_converter.presentation.model.ConverterCurrencyWithFlag
+import ru.romananchugov.feature_converter.presentation.model.ConverterCurrencyWithFlagItem
 import ru.romananchugov.revoluttest.presentation.adapter.AdapterDelegate
 import ru.romananchugov.revoluttest.presentation.model.DisplayableItem
 
-class ConverterListAdapterDelegate : AdapterDelegate<DisplayableItem>() {
+
+internal class ConverterListAdapterDelegate(
+    val rateClickListener: (item: ConverterCurrencyWithFlagItem) -> Unit
+) : AdapterDelegate<DisplayableItem>() {
     override fun isForViewType(items: List<DisplayableItem>, position: Int): Boolean {
-        return items[position] is ConverterCurrencyWithFlag
+        return items[position] is ConverterCurrencyWithFlagItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -30,7 +33,14 @@ class ConverterListAdapterDelegate : AdapterDelegate<DisplayableItem>() {
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        (holder as ViewHolder).binding.item = item as ConverterCurrencyWithFlag
+
+        (holder as ViewHolder).binding.item = item as ConverterCurrencyWithFlagItem
+
+        holder.binding.converterItemCurrencyRateEt.setOnFocusChangeListener { view, isFocused ->
+            if (isFocused) {
+                rateClickListener(item)
+            }
+        }
     }
 
     inner class ViewHolder(val binding: ItemConverterBinding) :

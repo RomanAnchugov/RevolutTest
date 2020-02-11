@@ -5,13 +5,21 @@ import ru.romananchugov.feature_converter.presentation.model.ConverterCurrencyWi
 import ru.romananchugov.revoluttest.presentation.model.DisplayableItem
 
 class ConverterListDiffCallback: DiffUtil.ItemCallback<DisplayableItem>() {
+
     override fun areItemsTheSame(oldItem: DisplayableItem, newItem: DisplayableItem): Boolean {
-        return oldItem == newItem
+        val oItem = oldItem as ConverterCurrencyWithFlagItem
+        val nItem = newItem as ConverterCurrencyWithFlagItem
+        return oItem.getCurrencyAbbreviation() == nItem.getCurrencyAbbreviation()
     }
 
     override fun areContentsTheSame(oldItem: DisplayableItem, newItem: DisplayableItem): Boolean {
-        return (oldItem as ConverterCurrencyWithFlagItem).getCurrencyAbbreviation() == (newItem as ConverterCurrencyWithFlagItem).getCurrencyAbbreviation()
-    }
+        val oItem = oldItem as ConverterCurrencyWithFlagItem
+        val nItem = newItem as ConverterCurrencyWithFlagItem
 
+        val result =
+            oItem.rate == nItem.rate && oItem.getCurrencyFullName() == nItem.getCurrencyFullName()
+
+        return result
+    }
 
 }
