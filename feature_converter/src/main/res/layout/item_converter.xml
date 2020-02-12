@@ -71,7 +71,7 @@
             app:layout_constraintTop_toBottomOf="@id/converter_item_currency_abbr_tv"
             tools:text="US Dollar" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/converter_item_currency_rate_et"
             style="@style/R20.Black"
             android:maxLength="8"
@@ -80,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/end_margin_normal"
             android:text="@{item.currencyRate}"
+            android:imeOptions="actionDone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
