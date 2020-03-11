@@ -16,7 +16,7 @@ abstract class BaseViewModel<ViewState : BaseState, ViewAction : BaseAction>(ini
 
     protected fun sendAction(action: ViewAction) {
         val result = handleAction(action)
-        if (_viewStateLiveData.value == result) return
+//        if (_viewStateLiveData.value == result) return
         _viewStateLiveData.value = result
     }
 }

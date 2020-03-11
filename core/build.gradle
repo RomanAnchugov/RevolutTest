@@ -10,6 +10,7 @@ dependencies {
     //KTX
     api dependency.ktxCore
     api dependency.ktxLifecycleViewModel
+    api dependency.ktxLifecycleLifeData
     api dependency.ktxFragment
 
     api dependency.kotlinReflect

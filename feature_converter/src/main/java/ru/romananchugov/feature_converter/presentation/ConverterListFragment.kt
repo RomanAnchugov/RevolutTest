@@ -14,14 +14,13 @@ import ru.romananchugov.feature_converter.R
 import ru.romananchugov.feature_converter.databinding.FragmentConverterListBinding
 import ru.romananchugov.feature_converter.presentation.adapter.ConverterListAdapterDelegate
 import ru.romananchugov.feature_converter.presentation.adapter.ConverterListDiffCallback
-import ru.romananchugov.feature_converter.presentation.model.ConverterListItem
+import ru.romananchugov.feature_converter.presentation.ext.hideKeyboard
 import ru.romananchugov.revoluttest.presentation.adapter.DelegationAdapter
+import timber.log.Timber
 
 internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState>() {
 
     private val viewModel by inject<ConverterViewModel>()
-
-    private val adapter = DelegationAdapter(ConverterListDiffCallback(), ConverterListAdapterDelegate())
 
     private lateinit var binding: FragmentConverterListBinding
     override val stateObserver: Observer<ConverterViewModel.ViewState>? = Observer { state ->
@@ -39,38 +38,34 @@ internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState
             container,
             false
         )
-        binding.lifecycleOwner = this
-        binding.converterRv.adapter = adapter
-        binding.converterRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-
-//        adapter.submitList(
-//            listOf(
-//                ConverterListItem("Test"),
-//                ConverterListItem("One"),
-//                ConverterListItem("Two"),
-//                ConverterListItem("Three"),
-//                ConverterListItem("Four"),
-//                ConverterListItem("Five"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test"),
-//                ConverterListItem("Test")
-//            )
-//        )
+        binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.converterRv.adapter = DelegationAdapter(
+            ConverterListDiffCallback(),
+            ConverterListAdapterDelegate(
+                viewLifecycleOwner,
+                viewModel::onConverterListItemFocus,
+                viewModel::onBaseRateChanged
+            )
+        )
+        binding.converterRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+
         viewModel.init()
         observe(viewModel.viewStateLiveData, stateObserver)
 
         stateObserver?.let { viewModel.viewStateLiveData.observe(this, stateObserver) }
+    }
+
+    override fun onPause() {
+        view?.hideKeyboard()
+        super.onPause()
     }
 }

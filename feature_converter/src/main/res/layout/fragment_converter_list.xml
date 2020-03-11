@@ -14,14 +14,8 @@
         android:layout_height="match_parent"
         tools:context="ru.romananchugov.feature_converter.presentation.ConverterListFragment">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@{`loliks`}" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/converter_rv"
-            android:layout_marginTop="100dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:listData="@{viewState.converterData.itemsList}" />

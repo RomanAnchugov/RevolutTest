@@ -1,18 +1,26 @@
 package ru.romananchugov.feature_converter.domain.model
 
-import ru.romananchugov.feature_converter.presentation.model.ConverterListItem
+import ru.romananchugov.feature_converter.domain.enum.ConverterCurrenciesDomainEnum
+import ru.romananchugov.feature_converter.presentation.model.ConverterCurrencyWithFlagItem
 import ru.romananchugov.feature_converter.presentation.model.ConverterPresentationModel
 
 data class ConverterDomainModel(
-    val base: String,
-    val date: String,
-    val rates: Map<String, Float>
+    val rates: List<Pair<String, Float>>
 )
 
+//TODO: move this method to presentation layer
 fun ConverterDomainModel.toPresentationModel(): ConverterPresentationModel {
-    return ConverterPresentationModel(
-        rates.keys.map { currencyName ->
-            ConverterListItem(currencyName, rates.getOrElse(currencyName) { 1f })
+    //base and top element
+    val converterList = mutableListOf<ConverterCurrencyWithFlagItem>()
+
+    converterList.addAll(
+        rates.map {
+            ConverterCurrencyWithFlagItem(
+                currency = ConverterCurrenciesDomainEnum.valueOf(it.first),//TODO: valueOf might be unsafe?
+                _rate = it.second
+            )
         }
     )
+
+    return ConverterPresentationModel(converterList)
 }

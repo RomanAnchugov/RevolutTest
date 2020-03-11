@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="R14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="R14.Gray">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="R16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="R16.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="R20">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="R20.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

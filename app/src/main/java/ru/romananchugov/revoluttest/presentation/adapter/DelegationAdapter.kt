@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import timber.log.Timber
 
 /**
  * T - is an item class
@@ -34,6 +35,14 @@ class DelegationAdapter<T>(diffCallback: DiffUtil.ItemCallback<T>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         adapterDelegatesManager.onBindViewHolder(getItem(position), holder, position)
+    }
+
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        adapterDelegatesManager.onBindViewHolder(getItem(position), holder, position, payloads)
     }
 
     override fun setData(data: List<T>?) {

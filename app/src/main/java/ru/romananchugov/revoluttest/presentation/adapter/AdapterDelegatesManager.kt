@@ -3,6 +3,7 @@ package ru.romananchugov.revoluttest.presentation.adapter
 import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import timber.log.Timber
 
 class AdapterDelegatesManager<T> {
 
@@ -25,6 +26,16 @@ class AdapterDelegatesManager<T> {
 
     fun onBindViewHolder(item: T, holder: RecyclerView.ViewHolder, position: Int) {
         delegateForViewType(holder.itemViewType)?.onBindViewHolder(item, holder, position)
+            ?: throw Exception("No Delegate Found for ViewType ${holder.itemViewType}")
+    }
+
+    fun onBindViewHolder(
+        item: T,
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payload: MutableList<Any>
+    ) {
+        delegateForViewType(holder.itemViewType)?.onBindViewHolder(item, holder, position, payload)
             ?: throw Exception("No Delegate Found for ViewType ${holder.itemViewType}")
     }
 
