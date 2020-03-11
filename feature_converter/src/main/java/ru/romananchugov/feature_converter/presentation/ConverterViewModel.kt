@@ -72,48 +72,14 @@ internal class ConverterViewModel(
         }
     }
 
-    //TODO: maybe move this logic to UseCase
     fun onConverterListItemFocus(item: ConverterCurrencyWithFlagItem) {
         useCase.setNewBase(item.getCurrencyAbbreviation())
     }
 
-    //TODO: maybe move this logic to UseCase
     fun onBaseRateChanged(value: String?) {
-        //TODO: checking for correctness
-
-
-//        val newList = viewStateLiveData.value?.converterData?.itemsList?.toMutableList()
-//        newList?.apply {
-//
-//            value?.toFloatOrNull()?.let {
-//
-//                val newRate = if (this[0].rate != 0f) it / this[0].rate else 1f
-//                this[0].rate *= newRate
-//                for (i in 1 until size) {
-//                    this[i].rate *= newRate
-//                }
-//            }
-//
-//            val model = viewStateLiveData.value?.converterData?.copy(itemsList = this)
-//            sendAction(ViewAction.ConverterLoaded(model))
-//        }
-//
         value?.toFloatOrNull()?.let {
             useCase.changeBaseValue(it)
         }
-
-//        value?.toFloatOrNull()?.let {
-//            viewModelScope.launch {
-//                val newState = useCase.changeBaseValue(it)
-//                val newList = newState.rates
-////                viewStateLiveData.value?.converterData?.itemsList?.let {
-////                    newList.forEachIndexed { index, pair ->
-////                        it[index].rate = newList[index].second
-////                    }
-////                }
-//                sendAction(ViewAction.ConverterLoaded(newState.toPresentationModel()))
-//            }
-//        }
     }
 
     data class ViewState(

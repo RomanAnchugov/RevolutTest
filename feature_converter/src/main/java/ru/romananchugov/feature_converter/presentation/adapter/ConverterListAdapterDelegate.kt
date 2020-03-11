@@ -80,15 +80,11 @@ internal class ConverterListAdapterDelegate(
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
             })
-
-            Timber.tag("LOL").i("bind1 for ${binding.converterItemCurrencyRateEt.text.toString()}")
         }
 
         fun bind(rate: String) {
-            if(binding.converterItemCurrencyRateEt.isFocused.not()) {
+            if (binding.converterItemCurrencyRateEt.isFocused.not()) {
                 binding.converterItemCurrencyRateEt.setText(rate)
-                Timber.tag("LOL")
-                    .i("bind2 for ${binding.converterItemCurrencyRateEt.text.toString()}")
             }
         }
     }
