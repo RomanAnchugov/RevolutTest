@@ -1,13 +1,25 @@
 package ru.romananchugov.feature_converter.presentation.model
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import ru.romananchugov.feature_converter.R
 import ru.romananchugov.feature_converter.domain.enum.ConverterCurrenciesDomainEnum
 import ru.romananchugov.revoluttest.presentation.model.DisplayableItem
 
 data class ConverterCurrencyWithFlagItem(
     private val currency: ConverterCurrenciesDomainEnum = ConverterCurrenciesDomainEnum.USD,
-    var rate: Float
+    private val _rate: Float,
+    private var _rateLiveData: MutableLiveData<Float> = MutableLiveData()
 ) : DisplayableItem{
+
+    var rate = _rate
+        set(value) {
+            field = value
+            _rateLiveData.postValue(field)
+        }
+
+    val rateLiveData: LiveData<Float>
+        get() = _rateLiveData
 
     fun getCountryFlagId(): Int = when (currency) {
         ConverterCurrenciesDomainEnum.AUD -> {

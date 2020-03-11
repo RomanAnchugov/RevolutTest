@@ -14,6 +14,7 @@ import ru.romananchugov.feature_converter.R
 import ru.romananchugov.feature_converter.databinding.FragmentConverterListBinding
 import ru.romananchugov.feature_converter.presentation.adapter.ConverterListAdapterDelegate
 import ru.romananchugov.feature_converter.presentation.adapter.ConverterListDiffCallback
+import ru.romananchugov.feature_converter.presentation.ext.hideKeyboard
 import ru.romananchugov.revoluttest.presentation.adapter.DelegationAdapter
 import timber.log.Timber
 
@@ -23,7 +24,6 @@ internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState
 
     private lateinit var binding: FragmentConverterListBinding
     override val stateObserver: Observer<ConverterViewModel.ViewState>? = Observer { state ->
-        Timber.tag("LOL").i("got new state\n${state.converterData?.itemsList}")
         binding.viewState = state
     }
 
@@ -49,15 +49,23 @@ internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState
         binding.converterRv.adapter = DelegationAdapter(
             ConverterListDiffCallback(),
             ConverterListAdapterDelegate(
-                viewModel::onConverterListItemFocus
+                viewLifecycleOwner,
+                viewModel::onConverterListItemFocus,
+                viewModel::onBaseRateChanged
             )
         )
         binding.converterRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+
         viewModel.init()
         observe(viewModel.viewStateLiveData, stateObserver)
 
         stateObserver?.let { viewModel.viewStateLiveData.observe(this, stateObserver) }
+    }
+
+    override fun onPause() {
+        view?.hideKeyboard()
+        super.onPause()
     }
 }

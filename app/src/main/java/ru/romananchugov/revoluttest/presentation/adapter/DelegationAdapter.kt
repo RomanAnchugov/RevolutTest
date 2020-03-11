@@ -37,8 +37,15 @@ class DelegationAdapter<T>(diffCallback: DiffUtil.ItemCallback<T>) :
         adapterDelegatesManager.onBindViewHolder(getItem(position), holder, position)
     }
 
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        adapterDelegatesManager.onBindViewHolder(getItem(position), holder, position, payloads)
+    }
+
     override fun setData(data: List<T>?) {
-        Timber.tag("LOL").i("set Data")
         submitList(data)
     }
 }

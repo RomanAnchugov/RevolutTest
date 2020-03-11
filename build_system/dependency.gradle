@@ -5,8 +5,8 @@ ext {
     //ktx
     ktxCoreVersion = '1.0.2'
     ktxLifecycleViewModelVersion = '2.2.0-rc03'
+    ktxLifecycleLiveDataVersion = '2.2.0'
     ktxFragmentVersion = '1.1.0'
-
     kotlinReflectVersion = '1.3.61'
 
     navigationVersion = '2.1.0'
@@ -42,6 +42,7 @@ ext {
             //KTX
             ktxCore              : "androidx.core:core-ktx:$ktxCoreVersion",
             ktxLifecycleViewModel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$ktxLifecycleViewModelVersion",
+            ktxLifecycleLifeData : "androidx.lifecycle:lifecycle-livedata-ktx:$ktxLifecycleLiveDataVersion",
             ktxFragment          : "androidx.fragment:fragment-ktx:$ktxFragmentVersion",
 
             //KoltinReflect

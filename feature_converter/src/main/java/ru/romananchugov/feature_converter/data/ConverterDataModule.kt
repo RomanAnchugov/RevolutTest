@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.romananchugov.feature_converter.data.repository.ConverterListRepositoryImpl
 import ru.romananchugov.feature_converter.data.retrofit.ConverterService
-import ru.romananchugov.feature_converter.domain.respository.ConverterListRepository
+import ru.romananchugov.feature_converter.domain.respository.ConverterRepository
 
 val converterDataModule = module {
 
@@ -22,7 +22,7 @@ val converterDataModule = module {
     single {
         ConverterListRepositoryImpl(
             get()
-        ) as ConverterListRepository
+        ) as ConverterRepository
     }
 }
 

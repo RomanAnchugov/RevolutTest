@@ -14,4 +14,11 @@ abstract class AdapterDelegate<in T> {
         holder: RecyclerView.ViewHolder,
         position: Int
     )
+
+    abstract fun onBindViewHolder(
+        item: T,
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    )
 }

@@ -45,46 +45,54 @@
         <TextView
             android:id="@+id/converter_item_currency_abbr_tv"
             style="@style/R16.Black"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/start_margin_normal"
             android:layout_marginTop="@dimen/top_margin_normal"
             android:layout_marginEnd="@dimen/end_margin_normal"
             android:ellipsize="end"
             android:text="@{item.currencyAbbreviation}"
             app:layout_constraintStart_toEndOf="@id/converter_item_flag_iv"
-            app:layout_constraintEnd_toStartOf="@id/converter_item_currency_rate_et"
-            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="USD" />
 
         <TextView
             android:id="@+id/converter_item_currency_name_tv"
             style="@style/R14.Gray"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
             android:layout_marginStart="@dimen/start_margin_normal"
             android:layout_marginEnd="@dimen/end_margin_normal"
             android:ellipsize="end"
             android:text="@{item.currencyFullName}"
-            app:layout_constraintEnd_toStartOf="@id/converter_item_currency_rate_et"
             app:layout_constraintStart_toEndOf="@id/converter_item_flag_iv"
             app:layout_constraintTop_toBottomOf="@id/converter_item_currency_abbr_tv"
             tools:text="US Dollar" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/converter_item_currency_rate_et"
-            style="@style/R20.Black"
-            android:maxLength="8"
-            android:inputType="numberDecimal"
-            android:layout_width="wrap_content"
+
+        <FrameLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/end_margin_normal"
-            android:text="@{item.currencyRate}"
-            android:imeOptions="actionDone"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1234.5333" />
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/converter_item_currency_name_tv"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/converter_item_currency_rate_et"
+                style="@style/R20.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:text="@{item.currencyRate}"
+                tools:text="1234.5333" />
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
