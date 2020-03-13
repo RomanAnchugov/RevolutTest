@@ -34,6 +34,10 @@ internal class ConverterUseCaseImpl(
     private val converterListRepository: ConverterRepository
 ) : ConverterUseCase {
 
+    companion object {
+        private const val CONVERTER_UPDATE_INTERVAL_MILLIS = 1000L
+    }
+
     override val dataChannel: BroadcastChannel<ConverterDomainModel> = BroadcastChannel(1)
 
     override val coroutineContext: CoroutineContext
@@ -54,7 +58,7 @@ internal class ConverterUseCaseImpl(
                     converterListRepository.getConverterList(lastBase).toDomainModel()
                 mapNewBase(newBaseValues)
                 dataChannel.offer(lastResult)
-                delay(1000)
+                delay(CONVERTER_UPDATE_INTERVAL_MILLIS)
             }
         }
     }
