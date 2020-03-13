@@ -72,6 +72,11 @@ internal class ConverterViewModel(
         }
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        useCase.clear()
+    }
+
     fun onConverterListItemFocus(item: ConverterCurrencyWithFlagItem) {
         useCase.setNewBase(item.getCurrencyAbbreviation())
     }
