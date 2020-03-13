@@ -1,4 +1,7 @@
 package ru.romananchugov.core.base.domain
 
-abstract class BaseUseCase {
+import kotlinx.coroutines.CoroutineScope
+
+interface BaseUseCase: CoroutineScope {
+    fun clear()
 }
