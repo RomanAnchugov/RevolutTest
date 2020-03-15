@@ -3,9 +3,9 @@ package ru.romananchugov.feature_converter.domain.use_case
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
 import ru.romananchugov.core.base.domain.BaseUseCase
-import ru.romananchugov.feature_converter.data.model.toDomainModel
 import ru.romananchugov.feature_converter.domain.enum.ConverterCurrenciesDomainEnum
 import ru.romananchugov.feature_converter.domain.ext.swap
+import ru.romananchugov.feature_converter.domain.ext.toDomainModel
 import ru.romananchugov.feature_converter.domain.model.ConverterDomainModel
 import ru.romananchugov.feature_converter.domain.respository.ConverterRepository
 import timber.log.Timber
@@ -54,6 +54,7 @@ internal class ConverterUseCaseImpl(
             lastResult = converterListRepository.getConverterList(lastBase).toDomainModel()
             baseValues = lastResult.copy()
             while (isActive) {
+                Timber.tag("LOL").i("Iteration")
                 val newBaseValues =
                     converterListRepository.getConverterList(lastBase).toDomainModel()
                 mapNewBase(newBaseValues)
@@ -68,15 +69,17 @@ internal class ConverterUseCaseImpl(
     override fun setNewBase(baseAbbr: String) {
         lastBase = baseAbbr
         var newPosition = -1
+
         lastResult.rates.forEachIndexed { index, pair ->
             if (pair.first == baseAbbr) {
                 newPosition = index
             }
         }
+
         val newList = lastResult.rates.toMutableList()
-        recalcBases(newList[0].first, newList[newPosition].first)
         newList.swap(0, newPosition)
         lastResult = lastResult.copy(rates = newList)
+
         //TODO: maybe made it(lastResult and offer) in BaseUseCase
         dataChannel.offer(lastResult)
     }
@@ -86,14 +89,18 @@ internal class ConverterUseCaseImpl(
     override fun changeBaseValue(newValue: Float) {
         val newList = lastResult.rates.toMutableList()
         newList[0] = newList[0].copy(second = newValue)
-        for (i in 1 until newList.size) {
-            val lastBase = getBaseValue(newList[i].first)
-            lastBase?.let {
-                newList[i] = newList[i].copy(second = lastBase.second * newValue)
+
+        getBaseValue(newList[0].first)?.second?.let {
+            val ratio = newValue / it
+            for (i in 0 until newList.size) {
+                val currencyBase = getBaseValue(newList[i].first)
+                currencyBase?.let {
+                    newList[i] = newList[i].copy(second = currencyBase.second * ratio)
+                }
             }
+            lastResult = lastResult.copy(rates = newList)
+            dataChannel.offer(lastResult)
         }
-        lastResult = lastResult.copy(rates = newList)
-        dataChannel.offer(lastResult)
     }
 
     override fun clear() {
@@ -101,35 +108,19 @@ internal class ConverterUseCaseImpl(
         dataChannel.close()
     }
 
-    //When we change actual base, due to mapping of bases, we
-    //have to change 1f in past base and value in new base
-    //So new base set to 1f, old to ratio
-    //We need this method to have and opportunity make recalculation in offline
-    private fun recalcBases(oldBase: String, newBase: String) {
-        var oldIndex = -1
-        var newIndex = -1
-        val newList = baseValues.rates.toMutableList()
-        newList.forEachIndexed { index, pair ->
-            if (pair.first == oldBase) oldIndex = index
-            if (pair.first == newBase) newIndex = index
-        }
-        newList[oldIndex] =
-            newList[oldIndex].copy(second = newList[oldIndex].second / newList[newIndex].second)
-        newList[newIndex] = newList[newIndex].copy(second = 1f)
-        baseValues = baseValues.copy(rates = newList)
-    }
-
     //Set new basesList, and after that recalculate actual converter list
-    //Because order of bases and actual list may be different
     private fun mapNewBase(newBases: ConverterDomainModel) {
         val newConverterList = mutableListOf<Pair<String, Float>>()
         baseValues = baseValues.copy(rates = newBases.rates)
-        for (i in lastResult.rates.indices) {
-            getBaseValue(lastResult.rates[i].first)?.let {
-                newConverterList.add(it.first to it.second * lastResult.rates[0].second)
+        getBaseValue(lastResult.rates[0].first)?.let {currency ->
+            val ratio = lastResult.rates[0].second / currency.second
+            for (i in lastResult.rates.indices) {
+                getBaseValue(lastResult.rates[i].first)?.let {
+                    newConverterList.add(it.first to it.second * ratio)
+                }
             }
+            lastResult = lastResult.copy(rates = newConverterList)
         }
-        lastResult = lastResult.copy(rates = newConverterList)
     }
 
     //Get rate for specific currencyName
