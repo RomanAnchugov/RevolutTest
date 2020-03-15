@@ -39,15 +39,15 @@ dependencies {
 //    //DataBinding
 //    kapt "com.android.databinding:compiler:3.1.4"
 
+    //Constraint
+    api dependency.constraintLayout
+
     //Retrofit
     api dependency.retrofit
     //Moshi
     api dependency.moshiConverter
     //Retrofit Logging Interceptor
     api dependency.loggingInterceptor
-
-    //Constraint
-    api dependency.constraintLayout
 
     //Room
     api dependency.room

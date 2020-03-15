@@ -4,6 +4,7 @@ import ru.romananchugov.feature_converter.domain.enum.ConverterCurrenciesDomainE
 import ru.romananchugov.feature_converter.presentation.model.ConverterCurrencyWithFlagItem
 import ru.romananchugov.feature_converter.presentation.model.ConverterPresentationModel
 
+//TODO: remade Pair with custom class
 data class ConverterDomainModel(
     val rates: List<Pair<String, Float>>
 )
