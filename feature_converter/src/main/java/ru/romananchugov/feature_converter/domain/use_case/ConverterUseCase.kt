@@ -7,6 +7,7 @@ import ru.romananchugov.feature_converter.domain.enum.ConverterCurrenciesDomainE
 import ru.romananchugov.feature_converter.domain.ext.swap
 import ru.romananchugov.feature_converter.domain.ext.toDomainModel
 import ru.romananchugov.feature_converter.domain.model.ConverterDomainModel
+import ru.romananchugov.feature_converter.domain.model.ConverterItemDomainModel
 import ru.romananchugov.feature_converter.domain.respository.ConverterRepository
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
@@ -71,7 +72,7 @@ internal class ConverterUseCaseImpl(
         var newPosition = -1
 
         lastResult.rates.forEachIndexed { index, pair ->
-            if (pair.first == baseAbbr) {
+            if (pair.currencyName == baseAbbr) {
                 newPosition = index
             }
         }
@@ -88,14 +89,14 @@ internal class ConverterUseCaseImpl(
     //We just recalculate whole list
     override fun changeBaseValue(newValue: Float) {
         val newList = lastResult.rates.toMutableList()
-        newList[0] = newList[0].copy(second = newValue)
+        newList[0] = newList[0].copy(currencyRate = newValue)
 
-        getBaseValue(newList[0].first)?.second?.let {
+        getBaseValue(newList[0].currencyName)?.currencyRate?.let {
             val ratio = newValue / it
             for (i in 0 until newList.size) {
-                val currencyBase = getBaseValue(newList[i].first)
+                val currencyBase = getBaseValue(newList[i].currencyName)
                 currencyBase?.let {
-                    newList[i] = newList[i].copy(second = currencyBase.second * ratio)
+                    newList[i] = newList[i].copy(currencyRate = currencyBase.currencyRate * ratio)
                 }
             }
             lastResult = lastResult.copy(rates = newList)
@@ -110,13 +111,18 @@ internal class ConverterUseCaseImpl(
 
     //Set new basesList, and after that recalculate actual converter list
     private fun mapNewBase(newBases: ConverterDomainModel) {
-        val newConverterList = mutableListOf<Pair<String, Float>>()
+        val newConverterList = mutableListOf<ConverterItemDomainModel>()
         baseValues = baseValues.copy(rates = newBases.rates)
-        getBaseValue(lastResult.rates[0].first)?.let {currency ->
-            val ratio = lastResult.rates[0].second / currency.second
+        getBaseValue(lastResult.rates[0].currencyName)?.let { currency ->
+            val ratio = lastResult.rates[0].currencyRate / currency.currencyRate
             for (i in lastResult.rates.indices) {
-                getBaseValue(lastResult.rates[i].first)?.let {
-                    newConverterList.add(it.first to it.second * ratio)
+                getBaseValue(lastResult.rates[i].currencyName)?.let {
+                    newConverterList.add(
+                        ConverterItemDomainModel(
+                            currencyName = it.currencyName,
+                            currencyRate = it.currencyRate * ratio
+                        )
+                    )
                 }
             }
             lastResult = lastResult.copy(rates = newConverterList)
@@ -124,7 +130,7 @@ internal class ConverterUseCaseImpl(
     }
 
     //Get rate for specific currencyName
-    private fun getBaseValue(currencyName: String): Pair<String, Float>? {
-        return baseValues.rates.find { it.first == currencyName }
+    private fun getBaseValue(currencyName: String): ConverterItemDomainModel? {
+        return baseValues.rates.find { it.currencyName == currencyName }
     }
 }
