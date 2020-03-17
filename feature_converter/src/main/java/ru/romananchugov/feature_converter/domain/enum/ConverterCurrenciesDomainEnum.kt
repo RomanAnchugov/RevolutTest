@@ -1,5 +1,6 @@
 package ru.romananchugov.feature_converter.domain.enum
 
+//TODO: do we really need this class? and maybe this should be a PRESENTATION model
 enum class ConverterCurrenciesDomainEnum(value: String) {
     AUD("AUD"),//Australia au
     BGN("BGN"),//Bangladesh bd

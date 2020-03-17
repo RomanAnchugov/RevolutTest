@@ -6,7 +6,7 @@ import ru.romananchugov.feature_converter.presentation.model.ConverterPresentati
 
 //TODO: remade Pair with custom class
 data class ConverterDomainModel(
-    val rates: List<Pair<String, Float>>
+    val rates: List<ConverterItemDomainModel>
 )
 
 //TODO: move this method to presentation layer
@@ -17,8 +17,8 @@ fun ConverterDomainModel.toPresentationModel(): ConverterPresentationModel {
     converterList.addAll(
         rates.map {
             ConverterCurrencyWithFlagItem(
-                currency = ConverterCurrenciesDomainEnum.valueOf(it.first),//TODO: valueOf might be unsafe?
-                _rate = it.second
+                currency = ConverterCurrenciesDomainEnum.valueOf(it.currencyName),//TODO: valueOf might be unsafe?
+                _rate = it.currencyRate
             )
         }
     )

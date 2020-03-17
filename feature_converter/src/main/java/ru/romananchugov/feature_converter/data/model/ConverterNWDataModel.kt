@@ -8,12 +8,3 @@ internal data class ConverterNWDataModel(
     @field:Json(name = "date") val date: String,
     @field:Json(name = "rates") val rates: Map<String, Float>
 )
-
-//TODO: by clean it should be placed in domain layer, so create an Mappers class with this
-// extention and in others layers
-internal fun ConverterNWDataModel.toDomainModel(): ConverterDomainModel {
-    //adding base element
-    return ConverterDomainModel(
-        rates = rates.toList()
-    )
-}
