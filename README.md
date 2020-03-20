@@ -1,0 +1,1 @@
+You can see progress in "Projects" tab or in issues
