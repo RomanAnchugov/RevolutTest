@@ -2,6 +2,7 @@ package ru.romananchugov.feature_converter.domain.use_case
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
+import retrofit2.Converter
 import ru.romananchugov.core.base.domain.BaseUseCase
 import ru.romananchugov.feature_converter.domain.enum.ConverterCurrenciesDomainEnum
 import ru.romananchugov.feature_converter.domain.ext.swap
@@ -22,24 +23,15 @@ import kotlin.coroutines.CoroutineContext
  */
 @ExperimentalCoroutinesApi
 interface ConverterUseCase : BaseUseCase {
-    //TODO: maybe made it in BaseUseCase with generic
-    val dataChannel: BroadcastChannel<ConverterDomainModel>
-
-    suspend fun loadConverterList(base: ConverterCurrenciesDomainEnum)
-    fun setNewBase(baseAbbr: String)
-    fun changeBaseValue(newValue: Float)
+    suspend fun loadConverterList(base: ConverterCurrenciesDomainEnum): ConverterDomainModel
+    fun setNewBase(baseAbbr: String): ConverterDomainModel
+    fun changeBaseValue(newValue: Float): ConverterDomainModel
 }
 
 @ExperimentalCoroutinesApi
 internal class ConverterUseCaseImpl(
     private val converterListRepository: ConverterRepository
 ) : ConverterUseCase {
-
-    companion object {
-        private const val CONVERTER_UPDATE_INTERVAL_MILLIS = 1000L
-    }
-
-    override val dataChannel: BroadcastChannel<ConverterDomainModel> = BroadcastChannel(1)
 
     override val coroutineContext: CoroutineContext
         get() = SupervisorJob() + Dispatchers.Main
@@ -49,25 +41,18 @@ internal class ConverterUseCaseImpl(
     private var lastBase = "USD"
 
     //First method, that start allLoading
-    //TODO: rename it
-    override suspend fun loadConverterList(base: ConverterCurrenciesDomainEnum) {
-        launch {
-            lastResult = converterListRepository.getConverterList(lastBase).toDomainModel()
+    override suspend fun loadConverterList(base: ConverterCurrenciesDomainEnum): ConverterDomainModel {
+        lastResult = converterListRepository.getConverterList(lastBase).toDomainModel()
+        if (::baseValues.isInitialized.not()) {
             baseValues = lastResult.copy()
-            while (isActive) {
-                Timber.tag("LOL").i("Iteration")
-                val newBaseValues =
-                    converterListRepository.getConverterList(lastBase).toDomainModel()
-                mapNewBase(newBaseValues)
-                dataChannel.offer(lastResult)
-                delay(CONVERTER_UPDATE_INTERVAL_MILLIS)
-            }
         }
+        mapNewBase(lastResult)
+        return lastResult
     }
 
     //Set new base in converter list
     //Actually just swap two elements of new and past base currencies
-    override fun setNewBase(baseAbbr: String) {
+    override fun setNewBase(baseAbbr: String): ConverterDomainModel {
         lastBase = baseAbbr
         var newPosition = -1
 
@@ -80,14 +65,12 @@ internal class ConverterUseCaseImpl(
         val newList = lastResult.rates.toMutableList()
         newList.swap(0, newPosition)
         lastResult = lastResult.copy(rates = newList)
-
-        //TODO: maybe made it(lastResult and offer) in BaseUseCase
-        dataChannel.offer(lastResult)
+        return lastResult
     }
 
     //Method call, when user change/rewrite value in top(base)
     //We just recalculate whole list
-    override fun changeBaseValue(newValue: Float) {
+    override fun changeBaseValue(newValue: Float): ConverterDomainModel {
         val newList = lastResult.rates.toMutableList()
         newList[0] = newList[0].copy(currencyRate = newValue)
 
@@ -100,13 +83,12 @@ internal class ConverterUseCaseImpl(
                 }
             }
             lastResult = lastResult.copy(rates = newList)
-            dataChannel.offer(lastResult)
         }
+        return lastResult
     }
 
     override fun clear() {
         coroutineContext.cancel()
-        dataChannel.close()
     }
 
     //Set new basesList, and after that recalculate actual converter list

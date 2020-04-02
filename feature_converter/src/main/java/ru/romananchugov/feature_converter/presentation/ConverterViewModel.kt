@@ -4,8 +4,6 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.romananchugov.core.base.presentation.viewmodel.BaseAction
 import ru.romananchugov.core.base.presentation.viewmodel.BaseState
@@ -24,6 +22,10 @@ internal class ConverterViewModel(
     private val useCase: ConverterUseCase
 ) : BaseViewModel<ConverterViewModel.ViewState, ConverterViewModel.ViewAction>(ViewState()) {
 
+    companion object {
+        private const val CONVERTER_UPDATE_INTERVAL_MILLIS = 1000L
+    }
+
 
     override fun init() {
         sendAction(ViewAction.ConverterLoading)
@@ -31,20 +33,13 @@ internal class ConverterViewModel(
         viewModelScope.launch {
             try {
                 sendAction(ViewAction.ConverterLoading)
-                useCase.loadConverterList(ConverterCurrenciesDomainEnum.USD)
+                val result = useCase.loadConverterList(ConverterCurrenciesDomainEnum.USD)
+                Timber.tag("LOL").i("Result is $result")
+                sendAction(ViewAction.ConverterLoaded(converterData = result.toPresentationModel()))
             } catch (e: Exception) {
+                Timber.tag("LOL").i("Error is $e")
                 sendAction(ViewAction.ConverterLoadingError(R.string.default_error_message))
             }
-        }
-
-        //Subscribe to data channel in useCase
-        //TODO: maybe made it in baseUseCase
-        viewModelScope.launch {
-            useCase.dataChannel
-                .asFlow()
-                .collect {
-                    sendAction(ViewAction.ConverterLoaded(converterData = it.toPresentationModel()))
-                }
         }
     }
 
@@ -78,12 +73,14 @@ internal class ConverterViewModel(
     }
 
     fun onConverterListItemFocus(item: ConverterCurrencyWithFlagItem) {
-        useCase.setNewBase(item.getCurrencyAbbreviation())
+        val result = useCase.setNewBase(item.getCurrencyAbbreviation())
+        sendAction(ViewAction.ConverterLoaded(converterData = result.toPresentationModel()))
     }
 
     fun onBaseRateChanged(value: String?) {
         value?.toFloatOrNull()?.let {
-            useCase.changeBaseValue(it)
+            val result = useCase.changeBaseValue(it)
+            sendAction(ViewAction.ConverterLoaded(converterData = result.toPresentationModel()))
         }
     }
 

@@ -5,6 +5,6 @@ import retrofit2.http.Query
 import ru.romananchugov.feature_converter.data.model.ConverterNWDataModel
 
 internal interface ConverterService {
-    @GET("/latest")
+    @GET("/api/android/latest")
     suspend fun getConverterListAsync(@Query("base") base: String): ConverterNWDataModel
 }

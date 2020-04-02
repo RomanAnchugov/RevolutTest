@@ -1,11 +1,13 @@
 package ru.romananchugov.feature_converter.data.repository
 
+import android.util.Log
 import ru.romananchugov.feature_converter.data.db.ConverterDB
 import ru.romananchugov.feature_converter.data.model.ConverterDataModel
 import ru.romananchugov.feature_converter.data.model.ConverterItemDBDataModel
 import ru.romananchugov.feature_converter.data.model.ConverterItemDataModel
 import ru.romananchugov.feature_converter.data.retrofit.ConverterService
 import ru.romananchugov.feature_converter.domain.respository.ConverterRepository
+import timber.log.Timber
 
 internal class ConverterListRepositoryImpl(
     private val converterService: ConverterService,
@@ -24,6 +26,7 @@ internal class ConverterListRepositoryImpl(
 
             converterList.addAll(
                 apiResponse.rates.map {
+                    Timber.tag("LOL").i("${it.key} is ${it.value}")
                     ConverterItemDataModel(
                         currencyName = it.key,
                         currencyRate = it.value
