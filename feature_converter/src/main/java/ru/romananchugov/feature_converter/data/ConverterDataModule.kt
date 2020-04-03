@@ -46,7 +46,7 @@ private fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor):
 
 private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
     //TODO: take BASE_URL out to somewhere(mb BuildConfig?)
-    .baseUrl("https://revolut.duckdns.org/")
+    .baseUrl("https://hiring.revolut.codes/")
     .client(okHttpClient)
     .addConverterFactory(MoshiConverterFactory.create())
     .build()

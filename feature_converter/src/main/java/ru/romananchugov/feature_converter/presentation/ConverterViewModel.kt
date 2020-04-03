@@ -4,8 +4,6 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.romananchugov.core.base.presentation.viewmodel.BaseAction
 import ru.romananchugov.core.base.presentation.viewmodel.BaseState
@@ -24,7 +22,6 @@ internal class ConverterViewModel(
     private val useCase: ConverterUseCase
 ) : BaseViewModel<ConverterViewModel.ViewState, ConverterViewModel.ViewAction>(ViewState()) {
 
-
     override fun init() {
         sendAction(ViewAction.ConverterLoading)
 
@@ -33,18 +30,15 @@ internal class ConverterViewModel(
                 sendAction(ViewAction.ConverterLoading)
                 useCase.loadConverterList(ConverterCurrenciesDomainEnum.USD)
             } catch (e: Exception) {
+                Timber.tag("LOL").i("Exception in ViewModel $e")
                 sendAction(ViewAction.ConverterLoadingError(R.string.default_error_message))
             }
         }
 
-        //Subscribe to data channel in useCase
-        //TODO: maybe made it in baseUseCase
         viewModelScope.launch {
-            useCase.dataChannel
-                .asFlow()
-                .collect {
-                    sendAction(ViewAction.ConverterLoaded(converterData = it.toPresentationModel()))
-                }
+            for (result in useCase.stateChannel) {
+                sendAction(ViewAction.ConverterLoaded(result.toPresentationModel()))
+            }
         }
     }
 
@@ -78,12 +72,16 @@ internal class ConverterViewModel(
     }
 
     fun onConverterListItemFocus(item: ConverterCurrencyWithFlagItem) {
-        useCase.setNewBase(item.getCurrencyAbbreviation())
+        viewModelScope.launch {
+            useCase.setNewBase(item.getCurrencyAbbreviation())
+        }
     }
 
     fun onBaseRateChanged(value: String?) {
         value?.toFloatOrNull()?.let {
-            useCase.changeBaseValue(it)
+            viewModelScope.launch {
+                useCase.changeBaseValue(it)
+            }
         }
     }
 
