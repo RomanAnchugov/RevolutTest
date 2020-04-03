@@ -22,23 +22,22 @@ internal class ConverterViewModel(
     private val useCase: ConverterUseCase
 ) : BaseViewModel<ConverterViewModel.ViewState, ConverterViewModel.ViewAction>(ViewState()) {
 
-    companion object {
-        private const val CONVERTER_UPDATE_INTERVAL_MILLIS = 1000L
-    }
-
-
     override fun init() {
         sendAction(ViewAction.ConverterLoading)
 
         viewModelScope.launch {
             try {
                 sendAction(ViewAction.ConverterLoading)
-                val result = useCase.loadConverterList(ConverterCurrenciesDomainEnum.USD)
-                Timber.tag("LOL").i("Result is $result")
-                sendAction(ViewAction.ConverterLoaded(converterData = result.toPresentationModel()))
+                useCase.loadConverterList(ConverterCurrenciesDomainEnum.USD)
             } catch (e: Exception) {
-                Timber.tag("LOL").i("Error is $e")
+                Timber.tag("LOL").i("Exception in ViewModel $e")
                 sendAction(ViewAction.ConverterLoadingError(R.string.default_error_message))
+            }
+        }
+
+        viewModelScope.launch {
+            for (result in useCase.stateChannel) {
+                sendAction(ViewAction.ConverterLoaded(result.toPresentationModel()))
             }
         }
     }
@@ -73,14 +72,16 @@ internal class ConverterViewModel(
     }
 
     fun onConverterListItemFocus(item: ConverterCurrencyWithFlagItem) {
-        val result = useCase.setNewBase(item.getCurrencyAbbreviation())
-        sendAction(ViewAction.ConverterLoaded(converterData = result.toPresentationModel()))
+        viewModelScope.launch {
+            useCase.setNewBase(item.getCurrencyAbbreviation())
+        }
     }
 
     fun onBaseRateChanged(value: String?) {
         value?.toFloatOrNull()?.let {
-            val result = useCase.changeBaseValue(it)
-            sendAction(ViewAction.ConverterLoaded(converterData = result.toPresentationModel()))
+            viewModelScope.launch {
+                useCase.changeBaseValue(it)
+            }
         }
     }
 
