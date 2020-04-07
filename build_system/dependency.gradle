@@ -37,6 +37,8 @@ ext {
 
     roomVersion = '2.2.2'
 
+    materialComponentsVersion = '1.1.0'
+
     dependency = [
 
             //KTX
@@ -51,6 +53,7 @@ ext {
             //Core
             kotlinStdLib         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             appCompat            : "androidx.appcompat:appcompat:$appCompatVersion",
+            materialComponents : "com.google.android.material:material:$materialComponentsVersion",
 
             //Navigation
             navFragment          : "androidx.navigation:navigation-fragment-ktx:$navigationVersion",

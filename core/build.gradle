@@ -18,6 +18,7 @@ dependencies {
     //Core
     api dependency.kotlinStdLib
     api dependency.appCompat
+    api dependency.materialComponents
 
     //Timber
     api dependency.timber

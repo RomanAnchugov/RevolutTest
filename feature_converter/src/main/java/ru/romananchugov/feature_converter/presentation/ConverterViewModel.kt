@@ -61,6 +61,7 @@ internal class ConverterViewModel(
             ViewState(
                 isLoading = false,
                 isError = true,
+                errorMessageId = viewAction.errorMessageString,
                 converterData = null
             )
         }
@@ -85,9 +86,16 @@ internal class ConverterViewModel(
         }
     }
 
+    fun onStubRetryClick() {
+        //TODO: maybe remade it, bring out some login in separate method
+        init()
+    }
+
     data class ViewState(
         val isLoading: Boolean = true,
         val isError: Boolean = false,
+        @StringRes
+        val errorMessageId: Int = R.string.default_error_message,
         val converterData: ConverterPresentationModel? = null
     ) : BaseState
 

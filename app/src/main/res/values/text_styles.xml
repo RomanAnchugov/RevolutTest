@@ -24,4 +24,13 @@
     <style name="R20.Black">
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="B24">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="B24.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

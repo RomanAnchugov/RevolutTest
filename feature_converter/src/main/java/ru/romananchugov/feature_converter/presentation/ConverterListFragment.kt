@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.android.inject
 import ru.romananchugov.core.base.presentation.BaseFragment
 import ru.romananchugov.core.ext.observe
@@ -18,6 +20,8 @@ import ru.romananchugov.feature_converter.presentation.ext.hideKeyboard
 import ru.romananchugov.revoluttest.presentation.adapter.DelegationAdapter
 import timber.log.Timber
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState>() {
 
     private val viewModel by inject<ConverterViewModel>()
@@ -57,11 +61,12 @@ internal class ConverterListFragment : BaseFragment<ConverterViewModel.ViewState
         binding.converterRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
+        binding.stub.stubButton.setOnClickListener {
+            viewModel.onStubRetryClick()
+        }
 
         viewModel.init()
         observe(viewModel.viewStateLiveData, stateObserver)
-
-        stateObserver?.let { viewModel.viewStateLiveData.observe(this, stateObserver) }
     }
 
     override fun onPause() {
