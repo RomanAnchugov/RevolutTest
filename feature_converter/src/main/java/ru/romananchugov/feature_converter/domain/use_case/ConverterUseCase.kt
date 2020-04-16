@@ -9,6 +9,7 @@ import ru.romananchugov.feature_converter.domain.ext.toDomainModel
 import ru.romananchugov.feature_converter.domain.model.ConverterDomainModel
 import ru.romananchugov.feature_converter.domain.model.ConverterItemDomainModel
 import ru.romananchugov.feature_converter.domain.respository.ConverterRepository
+import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -25,6 +26,7 @@ interface ConverterUseCase : BaseUseCase {
     suspend fun loadConverterList(base: ConverterCurrenciesDomainEnum)
     suspend fun setNewBase(baseAbbr: String)
     suspend fun changeBaseValue(newValue: Float)
+    fun testFun(): Int
 }
 
 @ExperimentalCoroutinesApi
@@ -98,6 +100,12 @@ internal class ConverterUseCaseImpl(
             lastResult = lastResult.copy(rates = newList)
         }
         stateChannel.send(lastResult)
+    }
+
+    override fun testFun(): Int {
+        print("Test fun call")
+        converterListRepository.toString()
+        return 3
     }
 
     override fun clear() {

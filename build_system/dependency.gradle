@@ -39,6 +39,10 @@ ext {
 
     materialComponentsVersion = '1.1.0'
 
+    jUnitVersion = '4.12'
+    testCoreVersion = '1.0.0'
+    mockitoVersion = '1.10.19'
+
     dependency = [
 
             //KTX
@@ -53,7 +57,7 @@ ext {
             //Core
             kotlinStdLib         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             appCompat            : "androidx.appcompat:appcompat:$appCompatVersion",
-            materialComponents : "com.google.android.material:material:$materialComponentsVersion",
+            materialComponents   : "com.google.android.material:material:$materialComponentsVersion",
 
             //Navigation
             navFragment          : "androidx.navigation:navigation-fragment-ktx:$navigationVersion",
@@ -89,6 +93,11 @@ ext {
             //Room
             room                 : "androidx.room:room-runtime:$roomVersion",
             roomCompiler         : "androidx.room:room-compiler:$roomVersion",
-            roomCoroutines       : "androidx.room:room-ktx:$roomVersion"
+            roomCoroutines       : "androidx.room:room-ktx:$roomVersion",
+
+            //Test
+            jUnit                : "junit:junit:$jUnitVersion",
+            testCore             : "androidx.test:core:$testCoreVersion",
+            mockito              : "org.mockito:mockito-core:$mockitoVersion"
     ]
 }
